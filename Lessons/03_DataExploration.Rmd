@@ -33,7 +33,7 @@ If your working directory is not set to the folder you want, you have several op
 
 ```{r Setting the working directory }
 # Absolute file path is commented out
-# setwd("/home/guest/EDA-Fall2022")
+#setwd("/home/guest/EDA-Fall2022")
 ```
 
 You may change your working directory without coding by going to the Session menu in RStudio and navigating to the Set Working Directory tab. From there, you may select from a series of options to reset your working directory. 
@@ -75,7 +75,7 @@ library(tidyverse)
 
 Question: What happens in the console when you load a package?
 
-> Answer: 
+> Answer: it will show output in console and any packages that might come with it.
 
 ### Import your datasets
 
@@ -149,7 +149,7 @@ summary(USGS.flow.data)  #could point to column only with $
 ```
 
 What happened to blank cells in the spreadsheet when they were imported into R?
-> Answer: 
+> Answer: they show up as N/A
 
 ## Adjusting Datasets
 
@@ -163,7 +163,7 @@ summary(USGS.flow.data$gage.height.mean)
 ```
 Question: What types of research questions might make it favorable to remove NAs from a dataset, and what types of research questions might make it favorable to retain NAs in the dataset?
 
-> Answer: 
+> Answer: For time series analysis u don't remove NAs but for something like river temperature, you might want to keep the NA to know that there is no data there. 
 
 ```{r Removing NAs}
 USGS.flow.data.complete <- na.omit(USGS.flow.data)
