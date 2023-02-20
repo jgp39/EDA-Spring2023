@@ -60,7 +60,7 @@ If a package is already installed, you will need to load it every session. You c
 
 
 ```{r Installing and loading packages}
-# We will use the packages dplyr and ggplot2 regularly. 
+#We will use the packages dplyr and ggplot2 regularly. 
 #install.packages("dplyr") 
 #install.packages("ggplot2")
 # comment out install commands, use only when needed and re-comment
@@ -68,7 +68,7 @@ If a package is already installed, you will need to load it every session. You c
 library(dplyr)
 library(ggplot2)
 
-# Some packages are umbrellas under which other packages are loaded
+#Some packages are umbrellas under which other packages are loaded
 #install.packages("tidyverse")
 library(tidyverse)
 ```

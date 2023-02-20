@@ -8,7 +8,6 @@ fig_width: 5
 fig_height: 2.5
 editor_options: 
   chunk_output_type: console
----
 
 ## Objectives
 1. Import and explore datasets in R
@@ -17,7 +16,8 @@ editor_options:
 
 ## Opening discussion: why do we explore our data?
 
-Why is data exploration our first step in analyzing a dataset? What information do we gain? How does data exploration aid in our decision-making for data analysis steps further down the pipeline?
+Why is data exploration our first step in analyzing a dataset? #essential to know what you are looking at and how you need to analyze it.
+What information do we gain? How does data exploration aid in our decision-making for data analysis steps further down the pipeline?
 
 ## Import data and view summaries
 

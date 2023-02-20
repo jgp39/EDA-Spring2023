@@ -63,7 +63,7 @@ Litter<- read.csv("./Data/Raw/NEON_NIWO_Litter_massdata_2018-08_raw.csv",strings
 
 ```{r}
 dim(Neonics)
-# 4623, 30
+#4623, 30
 ```
 
 6.  Using the `summary` function on the "Effect" column, determine the most common effects that are studied. Why might these effects specifically be of interest?
