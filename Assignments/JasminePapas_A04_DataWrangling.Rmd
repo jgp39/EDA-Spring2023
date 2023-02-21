@@ -71,7 +71,7 @@ glimpse(EPA_O3_2018)
 
 ```{r}
 #3
-EPA_O3_2018$Date<- as.Date(EPA_O3_2018$Date, format= "%m/%d/%y")
+EPA_O3_2018$Date<- mdy(EPA_O3_2018$Date)
 EPA_O3_2019$Date<- as.Date(EPA_O3_2019$Date, format= "%m/%d/%y")
 EPA_PM25_2018$Date<- as.Date(EPA_PM25_2018$Date, format= "%m/%d/%y")
 EPA_PM25_2019$Date<- as.Date(EPA_PM25_2019$Date, format= "%m/%d/%y")
