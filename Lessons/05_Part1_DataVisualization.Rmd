@@ -77,30 +77,34 @@ Here are some commonly used aesthetic types that can be manipulated in ggplot:
 ### Plotting continuous variables over time: Scatterplot and Line Plot
 
 ```{r, fig.height = 3, fig.width = 4, warning = FALSE}
-# Scatterplot
+#adding the parameters at the top will ensure that it holds true for any plot created in this chunk
+# Scatterplot 
 ggplot(EPAair, aes(x = Date, y = Ozone)) + 
   geom_point()
 
 O3plot <- ggplot(EPAair) +
   geom_point(aes(x = Date, y = Ozone))
-print(O3plot)
+print(O3plot) #x axis is date, y axis is ozone, will show up as a point
 
 # Fix this code
-O3plot2 <- ggplot(EPAair) +
-  geom_point(aes(x = Date, y = Ozone, color = "blue"))
+O3plot2 <- ggplot(EPAair) + #provide dataframe you are working in
+  geom_point(aes(x = Date, y = Ozone, color = "blue")) #added a color in the aesthetics is like adding another variable 
+#correct version:
+#geom_point(aes(x=Date, y= Ozone), color= "blue")
 print(O3plot2)
 
 # Add additional variables
 # How could you automatically assign a marker color to a variable? 
 PMplot <- 
-  ggplot(EPAair, aes(x = Month, y = PM2.5, shape = as.factor(Year), color = Site.Name)) +
+  ggplot(EPAair, aes(x = Month, y = PM2.5, shape = as.factor(Year), color = Site.Name)) + #shape is assigning a different shape based on the year
+  #color is a function of site name HOW TO COLOR CODE
   geom_point()
 print(PMplot)
 
 # Separate plot with facets
 PMplot.faceted <-
   ggplot(EPAair, aes(x = Month, y = PM2.5, shape = as.factor(Year))) +
-  geom_point() +
+  geom_point() + #want variables as points
   facet_wrap(vars(Site.Name), nrow = 3)
 print(PMplot.faceted)
 
