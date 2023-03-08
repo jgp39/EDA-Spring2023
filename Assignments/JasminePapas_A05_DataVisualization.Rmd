@@ -81,15 +81,16 @@ For numbers 4-7, create ggplot graphs and adjust aesthetics to follow best pract
 
 ```{r plot total P vs PO4, fig.height = 3, fig.width = 4, warning = FALSE}
 #4 
-pp_phos_plot<-ggplot(pp_chemistry_nutrients)+
-  geom_point(aes(x= tp_ug, y= po4,color = lakename))+
+pp_phos_plot<-pp_chemistry_nutrients%>%
+  ggplot(aes(x= tp_ug, y= po4,color = lakename))+
+  geom_point()+
+  geom_smooth(method = "lm", se= FALSE, color= "black")+
   hw5_theme+
   labs(x="Phosphorus", y= "Phosphate")+
   ggtitle("Phosphorus vs. Phosphate")+
   xlim(0,125)+
-  ylim(0,40)+
-  geom_abline(x=0,120) #need to fix line of best fit
-
+  ylim(0,40)
+  
 print(pp_phos_plot)
 
 ```

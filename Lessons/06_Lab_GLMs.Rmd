@@ -46,9 +46,26 @@ Create three plots, each with appropriately formatted axes and legends. Choose a
 2. geom_boxplot of ozone divided by year. Add letters representing a significant difference between 2018 and 2019 (hint: stat_summary). 
 3. geom_violin of ozone divided by year, with the 0.5 quantile marked as a horizontal line. Add letters representing a significant difference between 2018 and 2019. 
 
-```{r}
+```{r, fig.height=3, fig.width=4, warning=TRUE}
 #Exercise 1:
+ozone.density<- ggplot(EPAair, aes(x=Ozone, fill= as.factor(Year)))+
+  geom_density(alpha=0.5)+#alpha changes transparency
+  scale_fill_manual(values = c("darkgreen","darkblue"))+
+  labs(fill="",x="Ozone AQI values", y="Density")#adding empty "" means you add nothing
 
+print(ozone.density)
+
+ozone.box<- ggplot(EPAair,aes(x=as.factor(Year), y= Ozone))+
+            geom_boxplot()+
+            stat_summary(geom="text", fun=max, vjust=-1, size=4, label=c("a","b"))
+print(ozone.box)
+
+ozone.violin<- ggplot(EPAair,aes(x=as.factor(Year), y= Ozone))+
+            geom_violin(draw_quantiles = 0.5)+
+            stat_summary(geom="text", fun=max, vjust=-1, size=4, label=c("a","b"))+
+            labs(x= "", y= "Ozone AQI values")+
+            ylim(0,150)
+print(ozone.violin)
 
 ```
 
@@ -61,11 +78,14 @@ For the NTL-LTER dataset, can we predict PM2.5 from Ozone?
 ```{r}
 
 #Exercise 2: Run a linear regression PM2.5 by Ozone. Find the p-value and R-squared value. 
+ex_02<- lm(data = EPAair, PM2.5~Ozone)#y~x is y (dependent variable) is a function of x (independent variable)
+summary(ex_02) 
+# lm runs a linear regression, does not spit out a plot
 
 
 
 #Exercise 3: Build a scatterplot. Add a line and standard error for the linear regression. Add the regression equation to the plot
-
+ggplot(EPAair, aes(x=Ozone, y= PM2.5))
 
 
 ```
@@ -78,12 +98,19 @@ What other variables can we add to improve model?
 ```{r}
 
 #Exercise 4: Build correlation plots and identify more possible explanatory variables to add to the regression.
+ozone.sitename<- EPAair%>%
+  select(Month,PM2.5, Ozone)%>% #needed to use only numerical variables, you cannot use site name
+  na.omit() #only omits na in a specific column drop.na will omit na's for all columns
 
+ozone.corr <- cor(ozone.sitename)
+corrplot(ozone.corr, method = "ellipse")#different plot than mixed
+corrplot.mixed(ozone.corr, upper = "ellipse") #puts the labels inside the graph
+  
 
 
 
 #Exercise 5: Choose a model by AIC in a Stepwise Algorithm. Do the results from AIC match the variables you selected on Exercise 4?
-
+ozonebyall.regression<- lm(data= ozone.sitename, PM2.5~Ozone+ Year+Month+ mean_lng)
 
 
 
