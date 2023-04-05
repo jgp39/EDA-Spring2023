@@ -234,6 +234,7 @@ Douglas<- counties_utm %>%
 Douglas_gage<- gage_location_utm %>% 
   filter(site_no == "6610000", site_no == "6610720", site_no == "6610732", site_no == "6610740", site_no == "6610742", site_no == "6610750", site_no == "6610760", site_no == "6610765", site_no == "6610770", site_no == "6610773", site_no == "6610780", site_no == "6610785", site_no == "6800500")
 
+#should have used st_intersect inside the filter
 
 
 #24 Plot

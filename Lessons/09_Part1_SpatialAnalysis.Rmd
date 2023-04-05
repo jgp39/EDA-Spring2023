@@ -117,25 +117,25 @@ EPAair.sites <- EPAair %>%
 EPAair.sf <- EPAair.sites %>% 
   st_as_sf(coords = c('mean_Lng','mean_Lat'),
            crs=4326)
-
+#st as sf makes a simple feature into a shape file
 #View the data using the methods above...
-
+class(EPAair.sf)
 ```
 
 ### EXERCISE: Creating a spatial dataframe from known coordinates
 
 ```{r Create a spatial dataframe from scratch}
-#First create a simple feature geometry object ("sfg")
+#First create a simple feature geometry object ("sfg") Location to a simple column
 sfg_GraingerHall <- st_point(c(-78.9427,36.00465))
 class(sfg_GraingerHall)
-mapview(sfg_GraingerHall)
+mapview(sfg_GraingerHall) #doesn't have a basemap because it doesn't know where that coordinate links to earth
 
 #Upgrade to a simple feature geometry column by adding a crs 
-sfc_GraingerHall <- st_sfc(sfg_GraingerHall,crs=4326)
+sfc_GraingerHall <- st_sfc(sfg_GraingerHall,crs=4326)#refers it to lat/long so it can map it
 class(sfc_GraingerHall)
 mapview(sfc_GraingerHall)
 
-#Upgrade to a spatial dataframe
+#Upgrade to a spatial dataframe to give attributes
 sf_GraingerHall <- st_as_sf(sfc_GraingerHall)
 sf_GraingerHall$Name = 'Grainger Hall'
 mapview(sf_GraingerHall)

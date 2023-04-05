@@ -91,14 +91,14 @@ Below we read in the USA counties shapefile, filtering for just the NC features 
 counties_sf<- st_read('./Data/Spatial/cb_2018_us_county_20m.shp') %>% 
   filter(STATEFP == 37) #Filter for just NC Counties
 
-#
+#names of columns
 colnames(counties_sf)
 
-#
+#show coordinate reference system
 st_crs(counties_sf) 
 
 
-#
+#Number of Rows
 nrow(counties_sf)
 
 #Reveal the extent of this dataset via the st_bbox() function
@@ -109,6 +109,7 @@ head(counties_sf)
 
 #Plot the data, colored by area of land in each county
 mapView(counties_sf, zcol = "AWATER")
+#interactive
 ```
 
 ### 2.2.2 Read in and explore 8-digit HUC watersheds for NC
@@ -117,19 +118,19 @@ mapView(counties_sf, zcol = "AWATER")
 
 ```{r read HUCs shapefile}
 #Read the shapefile into an sf dataframe named "huc8_sf"
-
+huc8_sf<- st_read('./Data/Spatial/NCHUC8.shp')
 
 #Reveal the columns
-
+colnames(huc8_sf)
 
 #Check the CRS
-
+st_crs(huc8_sf)
 
 #Examine some records
 head(huc8_sf)
 
 #View the data as a map, colored by the acreage in each
-
+mapView(huc8_sf, zcol= "ACRES")
 
 
 
@@ -141,14 +142,20 @@ head(huc8_sf)
 
 ```{r Select the Upper Neuse HUC 8}
 #Read the shapefile into an sf dataframe
-
-
+huc8_sf<- st_read('./Data/Spatial/NCHUC8.shp')
+upper_neuse_sf<- huc8_sf %>% 
+  filter(SUBBASIN== "Upper Neuse")
 
 #Create a map
+mapView(huc8_sf, col.regions= "orange")+
+mapView(upper_neuse_sf, col.regions= "purple")
 
+#create map in ggplot
+ggplot()+
+  geom_sf(data = huc8_sf, fill= 'purple', color= 'gray')+ #fill will fill the inside, color only does the border
+  geom_sf(data = upper_neuse_sf, fill= 'orange')
 
-
-
+#adding the plus gets them on top of each other
 ```
 
 ### 2.2.4 Reading in GeoJSON data
@@ -246,8 +253,8 @@ ggplot() +
 ```{r}
 #Compute HUC8 wind energy
 wind_raw <- read.csv('https://raw.githubusercontent.com/ENV859/EnviroAtlasData/main/Wind_Energy.csv',
-  colClasses = c('HUC_12' = 'factor')) %>%  
-  mutate(HUC_8 = substr(HUC_12,1,8)) %>% 
+  colClasses = c('HUC_12' = 'factor')) %>%  #makes sure that it reads this column values in as a factor and not a number
+  mutate(HUC_8 = substr(HUC_12,1,8)) %>% #substr= substring, tells u to start at 1 and co to 8 and make it a new column
   group_by(HUC_8) %>% 
   summarize(SumWindEnergy = sum(AvgWindEnergy))
   
@@ -255,7 +262,7 @@ wind_raw <- read.csv('https://raw.githubusercontent.com/ENV859/EnviroAtlasData/m
 huc8_sf_join = merge(x = huc8_sf,
                      y = wind_raw,
                      by.x = 'HUC_8',
-                     by.y = 'HUC_8')
+                     by.y = 'HUC_8') #encatchments shown as wind energy
 
 #View the outputs
 ggplot(data=huc8_sf_join) +
